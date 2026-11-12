@@ -1,0 +1,42 @@
+---
+title: "Final Project Proposal"
+output: github_document
+---
+
+## Group Members
+
+Haojian Lin (hl4104); Ruoqi Wang (rw3228); Yahan Xue (yx3108); Zhiquan Chen (zc2961); Zhuoxuan Li (zl3804).
+
+## Tentative Project Title
+
+Which Set of Sushi Would Please the Most Classmates?
+
+## Motivation
+
+Imagine organizing a class dinner where everyone has different sushi preferences, but only a limited number of sushi varieties can be ordered. How can we choose a combination that satisfies as many classmates as possible? Simply selecting the most popular sushi may not be the best strategy, since many popular items could appeal to the same people, while less popular options might satisfy individuals with different tastes.
+
+Our project aims to identify sushi combinations that maximize the number of people who have at least one preferred item available. We also want to explore how the optimal combination changes as the menu size increases and whether accounting for individual preferences improves coverage compared with selecting the most popular items.
+
+## Intended Final Products
+
+Our main product will be an interactive R Shiny menu planner. Users will be able to select the number of sushi varieties to include, view the recommended combination, and swap individual items to observe changes in preference coverage. The application will also display visualizations comparing different menu sizes and selection strategies.
+
+## Anticipated Data Sources
+
+We will use Kamishima's SUSHI Preference Data Set, which contains preference data from 5,000 respondents. In Set A, respondents ranked the same 10 sushi varieties. In Set B, the same respondents each rated 10 items selected from 100 varieties on a 0–4 scale. We will use these data to analyze preferences and predict missing ratings.
+
+## Planned Analyses / Visualizations / Coding Challenges
+
+We will begin by cleaning and exploring the datasets, examining rating distributions, sushi popularity, and differences in individual preferences. We plan to use matrix factorization to estimate missing ratings in Set B and investigate how Set A rankings can provide complementary preference information. Predictive performance will be evaluated using held-out observed ratings.
+
+Next, we will develop a menu optimization approach to maximize estimated coverage for each menu size. A respondent will be considered covered if at least one selected sushi item has an observed or predicted rating of 3 or higher.
+
+We will compare optimized menus with those selected by overall popularity and visualize coverage rates across menu sizes. We will also distinguish coverage supported by observed ratings from coverage relying on predictions. Key coding challenges include handling sparse preference data, developing an efficient optimization algorithm, and integrating the results into a responsive Shiny application.
+
+## Planned Timeline
+
+- Nov 16–20: Attend the project review meeting and begin data cleaning and exploratory analysis.
+- Nov 21–27: Develop and evaluate the preference prediction model and menu optimization algorithm.
+- Nov 28–Dec 4: Build the interactive Shiny application and create supporting visualizations.
+- Dec 5–11: Complete the analytical report, project website, and two-minute screencast; test and refine all deliverables.
+- Dec 12: Submit the final project website and complete peer assessments.
