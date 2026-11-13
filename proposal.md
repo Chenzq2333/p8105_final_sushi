@@ -8,23 +8,31 @@ Chen (zc2961); Zhuoxuan Li (zl3804).
 
 ## Tentative Project Title
 
-Which Set of Sushi Would Please the Most Classmates?
+What Should We Order? Optimizing a Sushi Menu for Group Preferences
 
 ## Motivation
 
-Imagine organizing a class dinner where everyone has different sushi
-preferences, but only a limited number of sushi varieties can be
-ordered. How can we choose a combination that satisfies as many
-classmates as possible? Simply selecting the most popular sushi may not
-be the best strategy, since many popular items could appeal to the same
-people, while less popular options might satisfy individuals with
-different tastes.
+Imagine organizing a class dinner where everyone has different
+preferences for sushi, yet the available varieties are limited. How
+should we select a set of sushi options that best accommodates
+everyone’s tastes—ensuring that as many diners as possible have at least
+one choice they truly enjoy?
 
-Our project aims to identify sushi combinations that maximize the number
-of people who have at least one preferred item available. We also want
-to explore how the optimal combination changes as the menu size
-increases and whether accounting for individual preferences improves
-coverage compared with selecting the most popular items.
+Simply selecting the most popular sushi varieties does not necessarily
+result in an optimal menu. This is because several popular items might
+appeal to the same group of people, while less popular options could be
+the only acceptable choices for individuals with unique tastes. This
+project aims to identify a selection of sushi that maximizes coverage of
+group preferences. We will explore how the optimal selection changes as
+the menu size increases, and evaluate whether incorporating individual
+preferences—rather than relying solely on overall popularity—leads to
+better coverage.
+
+Although this project was inspired by a class dinner, the data used
+comes from survey respondents rather than our own classmates.
+Consequently, we treat our findings as a general problem of “group menu
+optimization” and consider how preference patterns in a new group might
+differ from those of the original survey population.
 
 ## Intended Final Products
 
