@@ -1,0 +1,140 @@
+---
+title: "Data import & tidy"
+output: github_document
+date: "2026-11-24"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+
+import raw data
+```{r}
+data_url = "https://www.kamishima.net/asset/sushi3-2016.zip"
+
+raw_dir = "raw"
+zip_path = file.path(raw_dir, "sushi3-2016.zip")
+
+# Create the raw data folder
+dir.create(
+  raw_dir,
+  recursive = TRUE,
+  showWarnings = FALSE
+)
+
+# Download only if the ZIP file is not already present
+if (!file.exists(zip_path)) {
+  download.file(
+    url = data_url,
+    destfile = zip_path,
+    mode = "wb"
+  )
+}
+
+# Unzip only if the main data files are not already present
+required_files = c(
+  "sushi3.udata",
+  "sushi3.idata",
+  "sushi3a.5000.10.order",
+  "sushi3b.5000.10.order",
+  "sushi3b.5000.10.score"
+)
+
+raw_data <- file.path("raw", "sushi3-2016")
+required_paths = file.path(raw_data, required_files)
+
+if (!all(file.exists(required_paths))) {
+  unzip(
+    zipfile = zip_path,
+    exdir = raw_dir
+  )
+}
+
+cat("Raw data are available in:", raw_data, "\n")
+print(list.files(raw_dir))
+
+# 确认下载完成
+if (!all(file.exists(required_paths))) {
+  stop(
+    "Some required data files could not be found after extraction: ",
+    paste(
+      required_files[!file.exists(required_paths)],
+      collapse = ", "
+    )
+  )
+}
+
+
+```
+```{r}
+clean_dir = "clean_data"
+
+dir.create(
+  clean_dir,
+  recursive = TRUE,
+  showWarnings = FALSE
+)
+```
+
+users
+```{r}
+users = read_tsv(
+  file.path(raw_data, "sushi3.udata"),
+  col_names = FALSE,
+  show_col_types = FALSE
+) |>
+  set_names(
+    "user_id",
+    "gender",
+    "age_group",
+    "completion_time",
+    "childhood_prefecture",
+    "childhood_region",
+    "childhood_east_west",
+    "current_prefecture",
+    "current_region",
+    "current_east_west",
+    "moved_prefecture"
+  ) |>
+  mutate(
+    # 用来之后和setA和setB链接join的
+    respondent_row = row_number(),
+
+    gender = factor(
+      gender,
+      levels = c(0, 1),
+      labels = c("male", "female")
+    ),
+
+    age_group = factor(
+      age_group,
+      levels = 0:5,
+      labels = c(
+        "15-19",
+        "20-29",
+        "30-39",
+        "40-49",
+        "50-59",
+        "60+"
+      )
+    ),
+
+    moved_prefecture = factor(
+      moved_prefecture,
+      levels = c(0, 1),
+      labels = c("same", "different")
+    )
+  ) |>
+  relocate(respondent_row, user_id)
+
+# Data checks
+stopifnot(nrow(users) == 5000)
+stopifnot(n_distinct(users$user_id) == 5000)
+stopifnot(n_distinct(users$respondent_row) == 5000)
+```
+
